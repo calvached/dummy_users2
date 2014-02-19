@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   def self.authenticate(email, password)
     user = User.find_by(email: email)
     if user.password == password
-      session[:user_id] = user.id
+      user
     else
       nil
     end
