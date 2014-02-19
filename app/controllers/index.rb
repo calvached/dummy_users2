@@ -18,8 +18,11 @@ end
 
 post '/login' do
   user = User.authenticate(params[:email], params[:password])
-  if !user.nil?
+
+  if user
     session[:user_id] = user.id
+    puts '============ Session at Login ================'
+    p session
     redirect '/secret_page'
   else
     redirect '/'
