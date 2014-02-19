@@ -17,7 +17,8 @@ get '/signout' do
 end
 
 post '/login' do
-  user = User.find_by(email: params[:email])
+  User.authenticate(params[:email], params[:password])
+  # user = User.find_by(email: params[:email])
   if user.password == params[:password]
     session[:user_id] = user.id
     redirect '/secret_page'
