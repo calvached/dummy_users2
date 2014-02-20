@@ -3,10 +3,12 @@ get '/' do
   erb :index
 end
 
-get '/secret_page' do
+get '/users/:id' do
   if session[:user_id].nil?
     redirect '/'
   else
+    @user = User.find(session[:user_id])
+    @urls = @user.urls
     erb :secret_page
   end
 end
@@ -23,7 +25,7 @@ post '/login' do
     session[:user_id] = user.id
     puts '============ Session at Login ================'
     p session
-    redirect '/secret_page'
+    redirect "/users/#{session[:user_id]}"
   else
     redirect '/'
   end
